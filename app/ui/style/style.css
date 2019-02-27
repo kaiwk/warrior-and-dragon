@@ -1,42 +1,122 @@
 body {
+  margin: 0;
+  padding: 0;
+  border: 0;
   background-color: whitesmoke;
 }
 
-.todo-list {
-  background-color: white;
-  margin: auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #efefef;
-  box-shadow:
-  /* The top layer shadow */ 0 1px 1px rgba(0, 0, 0, 0.15),
-    /* The second layer */ 0 10px 0 -5px #eee,
-    /* The second layer shadow */ 0 10px 1px -4px rgba(0, 0, 0, 0.15),
-    /* The third layer */ 0 20px 0 -10px #eee,
-    /* The third layer shadow */ 0 20px 1px -9px rgba(0, 0, 0, 0.15);
-  padding: 30px;
+#graph {
+  width: 80%;
+  height: 85%;
+  margin: 0 auto;
+  background: #0000ff;
+  position: relative;
 }
 
-.todo-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 30px 20px 0;
-  width: 70%;
-  border-bottom: 1px solid #cecece;
-  font-family: Roboto, sans-serif;
-  font-weight: 100;
-  font-size: 15px;
-  color: #333333;
+.game-title {
+  width: 80%;
+  margin: 0.5em auto;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
-  font-size: 30px;
+#hero {
+  width: 4em;
+  height: 4em;
+  color: #000000;
+  background: #ff0000;
+
+  position: absolute;
+  z-index: 10;
 }
 
-input[type="checkbox"]:focus {
-  outline: 0;
+#dragon {
+  width: 6em;
+  height: 6em;
+  color: #ffffff;
+  background: #000000;
+
+  position: absolute;
+  right: 0px;
+  top: 40%;
+}
+
+#fight-scene {
+  width: 90%;
+  height: 90%;
+  background: #00ff00;
+  z-index: 50;
+
+  /* center vertically and horizontally */
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#fight-menu {
+  height: 24%;
+  width: 100%;
+
+  background: purple;
+  position: absolute;
+  bottom: 0px;
+}
+
+#fight-menu::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.hero-avatar {
+  height: 5em;
+  width: 5em;
+  background: red;
+  margin-left: 0.5em;
+
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hero-state {
+  margin: 0px;
+  padding: 0px;
+  margin-left: 0.8em;
+  padding-right: 2em;
+
+  list-style: none;
+  font-size: 0.7em;
+  color: #ffffff;
+
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.vertical-line {
+  border-right: 1px solid #ffffff;
+}
+
+.hero-ability {
+  margin-left: 1em;
+
+  display: inline-block;
+  vertical-align: middle;
+
+  padding-right: 2em;
+}
+
+.hero-ability-btn {
+  height: 2.5em;
+  width: 8em;
+  margin: 0.2em;
+  font-size: 0.8em;
+}
+
+.fight-description {
+  margin-left: 1em;
+  color: #ffffff;
+
+  display: inline-block;
+  vertical-align: top;
 }

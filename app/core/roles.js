@@ -19,7 +19,7 @@ const ABILITIES = {
   },
   smash: {
     name: "奋力一击",
-    description: "大力出奇迹，对敌人造成（40+物理攻击）的物理伤害。"
+    description: "蓄力发出猛击，对敌人造成（40+物理攻击）的物理伤害。"
   },
   // swordman
   shackle: {
@@ -34,13 +34,13 @@ const ABILITIES = {
   poison: {
     name: "毒咬",
     description:
-      "猛咬一口，造成（25+法术攻击）的单体伤害，并导致其进入中毒状态，每回合减2点生命值。"
+      "猛咬一口，造成（25+法术攻击）的单体伤害，并导致其进入中毒状态，每回合减5点生命值。"
   },
   // dragon
   dragonBreath: {
     name: "巨龙吐息",
     description:
-      "龙喷射大量火焰和毒液，对所有敌人造成200法术伤害，并进入中毒状态，每回合减10点生命值。"
+      "龙喷射大量火焰和毒液，对所有敌人造成200法术伤害，并进入中毒状态，每回合减5点生命值。"
   },
   dragonFly: {
     name: "飞龙在天",
@@ -51,8 +51,8 @@ const ABILITIES = {
 
 const LivingState = {
   NORMAL: "NORMAL",
-  POISON: "POISON",
-  VERTIGO: "VERTIGO"
+  POISON: "POISON", // reduce 5 hp each round.
+  VERTIGO: "VERTIGO" // pause two round.
 };
 
 class Human {
@@ -78,6 +78,7 @@ class Human {
     mp = 50,
     exp = 0,
     level = 0,
+    money = 0,
     ad = 1,
     ap = 1,
     ar = 1,
@@ -88,12 +89,14 @@ class Human {
     this.mp = mp;
     this.exp = exp;
     this.level = level;
+    this.money = money;
     this.ad = ad;
     this.ap = ap;
     this.ar = ar;
     this.mr = mr;
     this.livingState = LivingState.NORMAL;
     this.abilityList = [];
+    this.armedWith = [];
   }
 
   attack(target) {
@@ -110,6 +113,26 @@ class Human {
       this.level += 1;
     }
   }
+
+  addMoney(money) {
+    this.money += money;
+  }
+
+  equipArm(weapon) {
+    this.ad += weapon.ad;
+    this.ap += weapon.ap;
+    this.ar += weapon.ar;
+    this.mr += weapon.mr;
+    this.armedWith.push(weapon);
+  }
+
+  removeArm(weapon) {
+    this.ad -= weapon.ad;
+    this.ap -= weapon.ap;
+    this.ar -= weapon.ar;
+    this.mr -= weapon.mr;
+    this.armedWith.splice(this.armedWith.indexOf(weapon), 1);
+  }
 }
 
 class Warrior extends Human {
@@ -119,12 +142,13 @@ class Warrior extends Human {
     mp = 50,
     exp = 0,
     level = 0,
+    money = 0,
     ad = 10,
     ap = 0,
     ar = 5,
     mr = 5
   ) {
-    super(name, hp, mp, exp, level, ad, ap, ar, mr);
+    super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
 }
 
@@ -135,12 +159,13 @@ class SwordMan extends Human {
     mp = 50,
     exp = 0,
     level = 0,
+    money = 0,
     ad = 8,
     ap = 0,
     ar = 8,
     mr = 8
   ) {
-    super(name, hp, mp, exp, level, ad, ap, ar, mr);
+    super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
 }
 
@@ -151,19 +176,21 @@ class Wizard extends Human {
     mp = 80,
     exp = 0,
     level = 0,
+    money = 0,
     ad = 2,
     ap = 10,
     ar = 2,
     mr = 2
   ) {
-    super(name, hp, mp, exp, level, ad, ap, ar, mr);
+    super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
 }
 
 class Monster {
-  constructor(name, hp = 50, ad = 5, ap = 5, ar = 5, mr = 5) {
+  constructor(name, hp = 50, money = 0, ad = 5, ap = 5, ar = 5, mr = 5) {
     this.name = name;
     this.hp = hp;
+    this.money = money;
     this.ad = ad;
     this.ap = ap;
     this.ar = ar;
@@ -179,4 +206,25 @@ class Monster {
   }
 }
 
-export { Warrior, SwordMan, Wizard, Monster };
+class Weapon {
+  constructor(ad, ap, ar, mr) {
+    this.ad = ad;
+    this.ap;
+    this.ar = ar;
+    this.mr = mr;
+  }
+}
+
+class ShortSword extends Weapon {
+  constructor(ad, ap, ar, mr) {
+    super(ad, ap, ar, mr);
+  }
+}
+
+class LongSword extends Weapon {
+  constructor(ad, ap, ar, mr) {
+    super(ad, ap, ar, mr);
+  }
+}
+
+export { Human, Warrior, SwordMan, Wizard, Monster, ShortSword };

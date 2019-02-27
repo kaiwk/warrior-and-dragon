@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 
-const App = () => (
-  <div>
-    <h1>Hello, World!</h1>
-  </div>
-);
+import Graph from "./Graph";
+
+import "./style/style.css";
+
+const App = () => {
+  return (
+    <div>
+      <h1 className="game-title">勇者斗恶龙</h1>
+      <Graph />
+    </div>
+  );
+};
 
 export default App;
