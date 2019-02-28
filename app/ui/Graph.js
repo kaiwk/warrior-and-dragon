@@ -3,20 +3,23 @@ import Hero from "./Hero";
 import Dragon from "./Dragon";
 import FightScene from "./FightScene";
 
-import { Human, Warrior, Monster } from "../core/roles";
+import { Human, Warrior, Robot } from "../core/roles";
+import GameController, { GAME_STATE } from "../core/game-controller";
 
 class Graph extends Component {
-  role = new Human("人类");
-
-  state = {
-    // hero position
-    heroTop: 0,
-    heroLeft: 0,
-    // hero moveCount
-    moveCount: 0,
-    // FightScene
-    isFighting: false
-  };
+  constructor() {
+    super();
+    this.player = null;
+    this.state = {
+      // hero position
+      heroTop: 0,
+      heroLeft: 0,
+      // hero moveCount
+      moveCount: 0,
+      // FightScene
+      gameState: GAME_STATE.Normal
+    };
+  }
 
   handleKeyDown = e => {
     switch (e.key) {
@@ -46,14 +49,26 @@ class Graph extends Component {
         break;
     }
     this.setState(preState => ({
-      moveCount: preState.moveCount + 2
+      moveCount: preState.moveCount + 1
     }));
   };
 
+  componentDidMount() {
+    this.player = new Human("player", 100, 50, 0, 0, 0, 1, 1, 1, 1);
+    GameController.player = this.player;
+  }
+
+  componentWillUnmount() {
+    this.player = null;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    /* each 3 step, we encounter a monster to fight */
-    if (this.state.moveCount === 5 && !this.state.isFighting) {
-      this.setState({ isFighting: true });
+    /* each 3 step, we encounter a Robot to fight */
+    if (
+      this.state.moveCount === 5 &&
+      this.state.gameState === GAME_STATE.Normal
+    ) {
+      this.setState({ gameState: GAME_STATE.Fighting });
     }
   }
 
@@ -62,7 +77,7 @@ class Graph extends Component {
       <div id="graph" tabIndex="0" onKeyDown={this.handleKeyDown}>
         <Hero top={this.state.heroTop + "%"} left={this.state.heroLeft + "%"} />
         <Dragon />
-        <FightScene isFighting={this.state.isFighting} />
+        <FightScene gameState={this.state.gameState} />
       </div>
     );
   }

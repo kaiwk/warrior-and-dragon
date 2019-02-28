@@ -53,8 +53,39 @@ body {
   transform: translate(-50%, -50%);
 }
 
+$fight-menu-height: 24/100;
+$fight-height: 1 - $fight-menu-height;
+
+.fight-hero {
+  width: 50%;
+  height: percentage($fight-height);
+
+  background: #ffffff;
+
+  display: inline-block;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.fight-robot {
+  width: 50%;
+  height: percentage($fight-height);
+
+  background: #ffffff;
+
+  display: inline-block;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 #fight-menu {
-  height: 24%;
+  height: percentage($fight-menu-height);
   width: 100%;
 
   background: purple;

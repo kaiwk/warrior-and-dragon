@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Graph from "./Graph";
 
-import "./style/style.css";
+import "./style/style.scss";
 
 const App = () => {
   return (

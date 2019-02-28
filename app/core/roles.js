@@ -3,12 +3,17 @@ const expBase = level => 10 * 2 ** level;
 // 0 20 40 80 160 320 640 1280
 
 const ABILITIES = {
+  // common
+  attack: {
+    name: "攻击",
+    description: "普通攻击，造成和攻击力数值一样的物理伤害"
+  },
   // wizard
   fireball: {
     name: "火球术",
     description: "释放火球，造成（20+等级*5+法术攻击*0.8)的单体法术伤害。"
   },
-  cheerup: {
+  bless: {
     name: "祝福",
     description: "恢复全体队友的异常状态，并且增加（50+法术攻击*0.5）的生命值。"
   },
@@ -49,16 +54,16 @@ const ABILITIES = {
   }
 };
 
-const LivingState = {
-  NORMAL: "NORMAL",
-  POISON: "POISON", // reduce 5 hp each round.
-  VERTIGO: "VERTIGO" // pause two round.
+const RoleState = {
+  Normal: 0x00,
+  Poison: 0x01, // reduce 5 hp each round.
+  Vertigo: 0x02 // pause two round.
 };
 
 class Human {
   /**
    * All user characters are humans.
-   * Both Human and Monster has property hp.
+   * Both Human and Robot has property hp.
    *
    * @param {String} name
    * @param {Number} hp hit point
@@ -94,7 +99,7 @@ class Human {
     this.ap = ap;
     this.ar = ar;
     this.mr = mr;
-    this.livingState = LivingState.NORMAL;
+    this.state = RoleState.Normal;
     this.abilityList = [];
     this.armedWith = [];
   }
@@ -150,6 +155,10 @@ class Warrior extends Human {
   ) {
     super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
+
+  spuron() {}
+
+  smash() {}
 }
 
 class SwordMan extends Human {
@@ -167,6 +176,10 @@ class SwordMan extends Human {
   ) {
     super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
+
+  shackle() {}
+
+  sprint() {}
 }
 
 class Wizard extends Human {
@@ -184,9 +197,13 @@ class Wizard extends Human {
   ) {
     super(name, hp, mp, exp, level, money, ad, ap, ar, mr);
   }
+
+  fireball(robot) {}
+
+  bless(robot) {}
 }
 
-class Monster {
+class Robot {
   constructor(name, hp = 50, money = 0, ad = 5, ap = 5, ar = 5, mr = 5) {
     this.name = name;
     this.hp = hp;
@@ -209,7 +226,7 @@ class Monster {
 class Weapon {
   constructor(ad, ap, ar, mr) {
     this.ad = ad;
-    this.ap;
+    this.ap = ap;
     this.ar = ar;
     this.mr = mr;
   }
@@ -227,4 +244,4 @@ class LongSword extends Weapon {
   }
 }
 
-export { Human, Warrior, SwordMan, Wizard, Monster, ShortSword };
+export { Human, Warrior, SwordMan, Wizard, Robot, ShortSword };

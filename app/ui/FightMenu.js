@@ -14,19 +14,21 @@ class FightMenu extends Component {
         </ul>
         <div className="hero-ability vertical-line">
           <table>
-            <tr>
-              <td>
-                <button className="hero-ability-btn">攻击</button>
-              </td>
-              <td>
-                <button className="hero-ability-btn">禁锢</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button className="hero-ability-btn">陷阵冲锋</button>
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>
+                  <button className="hero-ability-btn">攻击</button>
+                </td>
+                <td>
+                  <button className="hero-ability-btn">禁锢</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button className="hero-ability-btn">陷阵冲锋</button>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <p className="fight-description">xxx开始蓄力，向敌人发起了猛击！</p>
