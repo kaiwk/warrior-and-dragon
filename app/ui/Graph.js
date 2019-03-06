@@ -22,39 +22,41 @@ class Graph extends Component {
   }
 
   handleKeyDown = e => {
-    switch (e.key) {
-      case "w":
-        this.setState(preState => ({
-          heroTop: preState.heroTop - 2
-        }));
-        console.log("move up");
-        break;
-      case "a":
-        this.setState(preState => ({
-          heroLeft: preState.heroLeft - 2
-        }));
-        console.log("move left");
-        break;
-      case "s":
-        this.setState(preState => ({
-          heroTop: preState.heroTop + 2
-        }));
-        console.log("move down");
-        break;
-      case "d":
-        this.setState(preState => ({
-          heroLeft: preState.heroLeft + 2
-        }));
-        console.log("move right");
-        break;
+    if (this.state.gameState === GAME_STATE.Normal) {
+      switch (e.key) {
+        case "w":
+          this.setState(preState => ({
+            heroTop: preState.heroTop - 2
+          }));
+          console.log("move up");
+          break;
+        case "a":
+          this.setState(preState => ({
+            heroLeft: preState.heroLeft - 2
+          }));
+          console.log("move left");
+          break;
+        case "s":
+          this.setState(preState => ({
+            heroTop: preState.heroTop + 2
+          }));
+          console.log("move down");
+          break;
+        case "d":
+          this.setState(preState => ({
+            heroLeft: preState.heroLeft + 2
+          }));
+          console.log("move right");
+          break;
+      }
+      this.setState(preState => ({
+        moveCount: preState.moveCount + 1
+      }));
     }
-    this.setState(preState => ({
-      moveCount: preState.moveCount + 1
-    }));
   };
 
   componentDidMount() {
-    this.player = new Human("player", 100, 50, 0, 0, 0, 1, 1, 1, 1);
+    this.player = new Warrior("Simon", 100, 50, 0, 0, 0, 50, 0, 5, 5);
     GameController.player = this.player;
   }
 
@@ -63,21 +65,38 @@ class Graph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    /* each 3 step, we encounter a Robot to fight */
-    if (
-      this.state.moveCount === 5 &&
-      this.state.gameState === GAME_STATE.Normal
-    ) {
-      this.setState({ gameState: GAME_STATE.Fighting });
+    /* Randomly, we encounter a Robot to fight */
+
+    switch (this.state.gameState) {
+      case GAME_STATE.Normal:
+        if (prevState.gameState !== GAME_STATE.EndFight) {
+          const randomNum =
+            Math.floor(Math.random() * 10) + this.state.moveCount;
+          if ((randomNum + this.state.moveCount) % 7 == 0) {
+            this.setState({ gameState: GAME_STATE.Fighting });
+          }
+        }
+        break;
+      case GAME_STATE.EndFight:
+        this.setState({ gameState: GAME_STATE.Normal });
+        break;
     }
   }
+
+  hideFightScene = () => {
+    this.setState({
+      gameState: GAME_STATE.EndFight
+    });
+  };
 
   render() {
     return (
       <div id="graph" tabIndex="0" onKeyDown={this.handleKeyDown}>
         <Hero top={this.state.heroTop + "%"} left={this.state.heroLeft + "%"} />
         <Dragon />
-        <FightScene gameState={this.state.gameState} />
+        {this.state.gameState === GAME_STATE.Fighting && (
+          <FightScene hideFightScene={this.hideFightScene} />
+        )}
       </div>
     );
   }

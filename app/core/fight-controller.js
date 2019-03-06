@@ -3,7 +3,8 @@ const FIGHT_STATE = {
   RobotTurn: 0x01,
   PlayerDead: 0x02,
   RobotDead: 0x03,
-  Init: 0x04
+  Init: 0x04,
+  End: 0x05
 };
 
 class FightController {
@@ -20,22 +21,23 @@ class FightController {
 
   /**
    *
-   * @param {Object} command
+   * @param {Object} action
    * {
    *   id: 1,
    *   ability: "attck | fireball..."
    * }
    */
-  nextTurn(command) {
+  nextTurn(action) {
     switch (this.state) {
+      case FIGHT_STATE.Init:
       case FIGHT_STATE.PlayerTurn:
         if (!this.player.isAlive()) {
           this.state = FIGHT_STATE.End;
           return;
         }
 
-        if (this.player.hasOwnProperty(command.ability)) {
-          console.log("Player command!");
+        if (this.player.hasOwnProperty(action.ability)) {
+          console.log("Player action!");
         }
         this.state = FIGHT_STATE.RobotTurn;
         break;
@@ -45,8 +47,8 @@ class FightController {
           return;
         }
 
-        if (this.robot.hasOwnProperty(command.ability)) {
-          console.log("Robot command!");
+        if (this.robot.hasOwnProperty(action.ability)) {
+          console.log("Robot action!");
         }
         this.state = FIGHT_STATE.PlayerTurn;
         break;

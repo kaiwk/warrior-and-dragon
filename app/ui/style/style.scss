@@ -111,10 +111,10 @@ $fight-height: 1 - $fight-menu-height;
 }
 
 .hero-state {
+  width: 5em;
   margin: 0px;
   padding: 0px;
   margin-left: 0.8em;
-  padding-right: 2em;
 
   list-style: none;
   font-size: 0.7em;
@@ -126,6 +126,7 @@ $fight-height: 1 - $fight-menu-height;
 
 .vertical-line {
   border-right: 1px solid #ffffff;
+  padding-right: 1.5em;
 }
 
 .hero-ability {
@@ -133,8 +134,6 @@ $fight-height: 1 - $fight-menu-height;
 
   display: inline-block;
   vertical-align: middle;
-
-  padding-right: 2em;
 }
 
 .hero-ability-btn {
