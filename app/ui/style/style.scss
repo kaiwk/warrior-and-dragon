@@ -9,34 +9,31 @@ body {
   width: 80%;
   height: 85%;
   margin: 0 auto;
-  background: #0000ff;
+  background: #ffffff;
   position: relative;
+  border: solid 1px black;
 }
 
 .game-title {
   width: 80%;
   margin: 0.5em auto;
+  font-size: 2em;
+  font-weight: 300;
 }
 
 #hero {
   width: 4em;
-  height: 4em;
-  color: #000000;
-  background: #ff0000;
-
+  padding: 1em;
   position: absolute;
   z-index: 10;
 }
 
 #dragon {
   width: 6em;
-  height: 6em;
-  color: #ffffff;
-  background: #000000;
-
+  padding: 1em;
   position: absolute;
-  right: 0px;
-  top: 40%;
+  right: 0;
+  bottom: 0;
 }
 
 #fight-scene {
@@ -44,6 +41,7 @@ body {
   height: 90%;
   background: #00ff00;
   z-index: 50;
+  border: solid 1px black;
 
   /* center vertically and horizontally */
   position: absolute;
@@ -56,39 +54,23 @@ body {
 $fight-menu-height: 24/100;
 $fight-height: 1 - $fight-menu-height;
 
-.fight-hero {
+.fight-role {
   width: 50%;
   height: percentage($fight-height);
-
   background: #ffffff;
 
   display: inline-block;
+  text-align: center;
+  vertical-align: middle;
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.fight-robot {
-  width: 50%;
-  height: percentage($fight-height);
-
-  background: #ffffff;
-
-  display: inline-block;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
+  padding: 4em 0;
 }
 
 #fight-menu {
   height: percentage($fight-menu-height);
   width: 100%;
-
-  background: purple;
+  border: solid 1px #000000;
+  background: #ffffff;
   position: absolute;
   bottom: 0px;
 }
@@ -103,7 +85,6 @@ $fight-height: 1 - $fight-menu-height;
 .hero-avatar {
   height: 5em;
   width: 5em;
-  background: red;
   margin-left: 0.5em;
 
   display: inline-block;
@@ -118,14 +99,14 @@ $fight-height: 1 - $fight-menu-height;
 
   list-style: none;
   font-size: 0.7em;
-  color: #ffffff;
+  color: #000000;
 
   display: inline-block;
   vertical-align: middle;
 }
 
 .vertical-line {
-  border-right: 1px solid #ffffff;
+  border-right: 1px solid #000000;
   padding-right: 1.5em;
 }
 
@@ -145,8 +126,8 @@ $fight-height: 1 - $fight-menu-height;
 
 .fight-description {
   margin-left: 1em;
-  color: #ffffff;
-
+  color: #000000;
+  font-weight: 300;
   display: inline-block;
   vertical-align: top;
 }

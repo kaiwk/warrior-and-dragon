@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import FightMenu from "./FightMenu";
 
-import GameController, { GAME_STATE } from "../core/game-controller";
-import { FIGHT_STATE } from "../core/fight-controller";
+import GameController, { GAME_STATE } from "../../core/game-controller";
+import { FIGHT_STATE } from "../../core/fight-controller";
 
-import { Human } from "../core/roles";
+import { Human } from "../../core/roles";
 
 class FightScene extends Component {
   constructor() {
@@ -14,32 +14,37 @@ class FightScene extends Component {
     this.robot = this.fightController.robot;
     this.state = {
       fightState: FIGHT_STATE.Init,
-      abilityDesc: "default"
+      abilityDesc: ""
     };
   }
 
   isEnd = () => !this.player.isAlive() || !this.robot.isAlive();
 
   endFight = () => {
-    if (!this.player.isAlive()) {
-      this.setState({
-        fightState: FIGHT_STATE.PlayerDead,
-        abilityDesc: "你输了！"
-      });
-    }
+    if (
+      this.state.fightState !== FIGHT_STATE.PlayerDead &&
+      this.state.fightState !== FIGHT_STATE.RobotDead
+    ) {
+      if (!this.player.isAlive()) {
+        this.setState({
+          fightState: FIGHT_STATE.PlayerDead,
+          abilityDesc: "你输了！"
+        });
+      }
 
-    if (!this.robot.isAlive()) {
-      this.setState({
-        fightState: FIGHT_STATE.RobotDead,
-        abilityDesc: "你赢了！"
-      });
-      this.player.addExp(this.robot.exp);
-      this.player.money += this.robot.money;
-    }
+      if (!this.robot.isAlive()) {
+        this.setState({
+          fightState: FIGHT_STATE.RobotDead,
+          abilityDesc: "你赢了！"
+        });
+        this.player.addExp(this.robot.exp);
+        this.player.money += this.robot.money;
+      }
 
-    setTimeout(() => {
-      this.props.hideFightScene();
-    }, 1000);
+      setTimeout(() => {
+        this.props.hideFightScene();
+      }, 1000);
+    }
   };
 
   handleAbilityClick = index => {
@@ -90,10 +95,10 @@ class FightScene extends Component {
     return (
       <div id="fight-scene">
         <div>
-          <div className="fight-hero">
-            <img src="./assets/fight-hero.svg" alt="fight-hero" />
+          <div className="fight-role">
+            <img src="./assets/fight-warrior.svg" alt="fight-hero" />
           </div>
-          <div className="fight-robot">
+          <div className="fight-role">
             <img src="./assets/fight-ghost.svg" alt="fight-ghost" />
           </div>
         </div>

@@ -3,15 +3,15 @@ import React, { Component } from "react";
 class Hero extends Component {
   render() {
     return (
-      <div
+      <img
         id="hero"
+        src="./assets/fight-warrior.svg"
+        alt="hero"
         style={{
           top: this.props.top,
           left: this.props.left
         }}
-      >
-        hero
-      </div>
+      />
     );
   }
 }

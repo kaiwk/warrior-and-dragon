@@ -3,8 +3,8 @@ import Hero from "./Hero";
 import Dragon from "./Dragon";
 import FightScene from "./FightScene";
 
-import { Human, Warrior, Robot } from "../core/roles";
-import GameController, { GAME_STATE } from "../core/game-controller";
+import { Human, Warrior, Robot } from "../../core/roles";
+import GameController, { GAME_STATE } from "../../core/game-controller";
 
 class Graph extends Component {
   constructor() {

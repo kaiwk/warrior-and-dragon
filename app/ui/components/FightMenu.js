@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { StateMap as RoleStateMap } from "../core/roles";
-import { FIGHT_STATE } from "../core/fight-controller";
+import { StateMap as RoleStateMap } from "../../core/roles";
+import { FIGHT_STATE } from "../../core/fight-controller";
 
 const FightMenu = ({ player, handleAbilityClick, abilityDesc, fightState }) => {
   return (
     <div id="fight-menu">
-      <img className="hero-avatar" alt="avatar" />
+      <img
+        className="hero-avatar"
+        src="./assets/fight-avatar.svg"
+        alt="avatar"
+      />
       <ul className="hero-state">
         <li>生命:{player.hp}</li>
         <li>攻击:{player.ad}</li>
